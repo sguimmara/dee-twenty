@@ -7,9 +7,9 @@ pub mod dice;
 fn process_input(input: &str) {
     let mut dice = parse_dice(input);
 
-   let values = roll(&mut dice);
+    let values = roll(&mut dice);
 
-   present(&values);
+    present(&values);
 }
 
 fn main() {

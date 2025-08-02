@@ -1,3 +1,5 @@
+use std::str;
+
 use rand::random_range;
 use regex::Regex;
 
@@ -18,7 +20,7 @@ impl Die {
         Self::new(20)
     }
 
-    pub fn roll(&self) -> u32{
+    pub fn roll(&self) -> u32 {
         random_range(1..self.hi)
     }
 }
@@ -39,22 +41,15 @@ pub fn roll(dice: &mut Vec<Die>) -> Vec<u32> {
 }
 
 pub fn present(values: &Vec<u32>) {
-    let mut sum: u32 = 0;
+    let str_values = values
+        .iter()
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>()
+        .join(", ");
 
-    for i in 0..values.len() {
-        let val = values[i];
-        sum += val;
+    let sum = values.iter().sum::<u32>();
 
-        if i < values.len() - 1 {
-            print!("{}, ", val);
-        } else {
-            println!("{}", val);
-        }
-    }
-    let char_count = values.len() * 3 - 2;
-    let separator = (0..char_count).map(|_| "=").collect::<String>();
-    println!("{}", separator);
-    println!("total: {}", sum)
+    println!("{} (total: {})", str_values, sum);
 }
 
 pub fn parse_dice(input: &str) -> Vec<Die> {
